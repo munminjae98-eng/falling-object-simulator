@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>낙하물 안전 위험 시뮬레이터</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 상단 헤더 -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">⬇</span>
+            <span>낙하물 <strong>시뮬레이션</strong></span>
+        </div>
+
+        <div class="header-info">
+            <span class=""></span>
+            20406 문민재
+        </div>
+    </header>
+
+    <!-- 메인 화면 -->
+    <main class="container">
+
+        <div class="page-title">
+            <div>
+                <p class="sub-title">카피바라로 실험하기</p>
+                <h1>낙하물 안전 위험 시뮬레이터</h1>
+                <p class="description">
+                    낙하 조건에 따른 물리적 변화를 확인하고
+                    낙하물의 위험성을 알려드립니다
+                </p>
+            </div>
+        </div>
+
+        <div class="dashboard">
+
+            <!-- 왼쪽: 설정 패널 -->
+            <section class="panel settings-panel">
+
+                <div class="panel-title">
+                    <h2>⚙ 낙하 조건 설정</h2>
+                    <span class="tag">SETTINGS</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="floor">낙하 높이 (층수)</label>
+                    <select id="floor">
+                        <option value="1">1층 (3m)</option>
+                        <option value="2">2층 (6m)</option>
+                        <option value="3">3층 (9m)</option>
+                        <option value="4">4층 (12m)</option>
+                        <option value="5">5층 (15m)</option>
+                        <option value="6">6층 (18m)</option>
+                        <option value="7">7층 (21m)</option>
+                        <option value="8">8층 (24m)</option>
+                        <option value="9">9층 (27m)</option>
+                        <option value="10" selected>10층 (30m)</option>
+                        <option value="11">11층 (33m)</option>
+                        <option value="12">12층 (36m)</option>
+                        <option value="13">13층 (39m)</option>
+                        <option value="14">14층 (42m)</option>
+                        <option value="15">15층 (45m)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="mass">
+                        물체 질량
+                        <span class="value">kg</span>
+                    </label>
+                    <input type="number" id="mass"
+                           min="0.1" max="20" step="0.1"
+                           value="1">
+                    <small>설정 범위: 0.1 ~ 20kg</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="height">
+                        사람 키
+                        <span class="value">cm</span>
+                    </label>
+                    <input type="number" id="height"
+                           min="150" max="200"
+                           value="170">
+                    <small>설정 범위: 150 ~ 200cm</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="body-part">충돌 부위</label>
+                    <select id="body-part">
+                        <option value="head">머리</option>
+                        <option value="shoulder">어깨</option>
+                        <option value="foot">발</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>공기 저항</label>
+                    <div class="toggle-option">
+                        <label class="switch">
+                            <input type="checkbox" id="air-resistance">
+                            <span class="slider"></span>
+                        </label>
+                        <span>공기 저항 적용</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="face-upload">캐릭터 얼굴 이미지</label>
+                    <input type="file" id="face-upload"
+                           accept="image/png, image/jpeg">
+                    <small>JPG 또는 PNG 파일</small>
+                </div>
+
+                <button class="start-button" type="button">
+                    ▶ 시뮬레이션 시작
+                </button>
+
+                <button class="reset-button" type="reset">
+                    설정 초기화
+                </button>
+
+            </section>
+
+
+            <!-- 가운데: 시뮬레이션 화면 -->
+            <section class="panel simulation-panel">
+
+                <div class="panel-title">
+                    <h2>낙하 시뮬레이션</h2>
+                    <span class="live-tag">● READY</span>
+                </div>
+
+                <div class="simulation-screen">
+
+                    <div class="screen-label">
+                        FIRST PERSON VIEW
+                    </div>
+
+                    <div class="simulation-message">
+                        <div class="big-icon">⬇</div>
+                        <h3>시뮬레이션 대기 중</h3>
+                        <p>
+                            왼쪽에서 낙하 조건을 설정한 후<br>
+                            시뮬레이션 시작 버튼을 눌러주세요.
+                        </p>
+                    </div>
+
+                    <!-- 바닥 및 거리 표시 -->
+                    <div class="ground-line"></div>
+                    <div class="ground-label">GROUND LEVEL</div>
+
+                </div>
+
+                <div class="simulation-controls">
+                    <span>진행 상태</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span>0%</span>
+                </div>
+
+                <div class="simulation-notice">
+                    <span>ⓘ</span>
+                    현재 화면은 시뮬레이션 실행 전 대기 화면입니다.
+                </div>
+
+            </section>
+
+
+            <!-- 오른쪽: 결과 패널 -->
+            <section class="panel result-panel">
+
+                <div class="panel-title">
+                    <h2>물리 계산 결과</h2>
+                    <span class="tag">RESULT</span>
+                </div>
+
+                <div class="result-card">
+                    <span>낙하 높이</span>
+                    <strong>30.0 <small>m</small></strong>
+                </div>
+
+                <div class="result-card">
+                    <span>예상 낙하 시간</span>
+                    <strong>-- <small>s</small></strong>
+                </div>
+
+                <div class="result-card">
+                    <span>충돌 직전 속도</span>
+                    <strong>-- <small>m/s</small></strong>
+                </div>
+
+                <div class="result-card">
+                    <span>충돌 운동에너지</span>
+                    <strong>-- <small>J</small></strong>
+                </div>
+
+                <div class="risk-section">
+                    <h3>교육용 위험 안내</h3>
+                    <div class="risk-status">
+                        <span class="risk-indicator"></span>
+                        계산 대기 중
+                    </div>
+                    <p>
+                        시뮬레이션을 실행하면 물리 계산을 바탕으로
+                        교육용 위험 안내가 표시됩니다
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- 하단 안전 안내 -->
+        <section class="safety-notice">
+            <div class="notice-icon">⚠</div>
+            <div>
+                <strong>안전 안내</strong>
+                <p>
+                    본 프로그램은 낙하물의 물리적 특성과 안전 위험성을
+                    학습하기 위한 교육용 시뮬레이터입니다
+                    실제 인체의 부상이나 사망 여부를 예측하거나
+                    판정하는 용도로 사용할 수 없습니다
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            
+            <span></span>
+        </footer>
+
+        </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
